@@ -70,11 +70,12 @@ public static class Example71_AgentDelegation
             {
                 "What's on the menu?",
                 "Can you talk like pirate?",
+                "Can you tell me the specials today, like a pirate?",
                 "Thank you",
             };
 
             thread = await toolAgent.NewThreadAsync();
-            foreach (var response in messages.Select(m => thread.InvokeAsync(toolAgent, m)))
+            foreach (var response in messages.Select(m => thread.InvokeAsync(toolAgent, m, new KernelArguments { { "count", 2 } })))
             {
                 await foreach (var message in response)
                 {

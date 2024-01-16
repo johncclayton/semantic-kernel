@@ -34,16 +34,16 @@ public static class Example70_Agent
         }
 
         // "Hello agent"
-        await RunSimpleChatAsync();
+        // await RunSimpleChatAsync();
 
         // Run agent with "method" tool/function
-        await RunWithMethodFunctionsAsync();
+        // await RunWithMethodFunctionsAsync();
 
         // Run agent with "prompt" tool/function
         await RunWithPromptFunctionsAsync();
 
         // Run agent as function
-        await RunAsFunctionAsync();
+        // await RunAsFunctionAsync();
     }
 
     /// <summary>
@@ -58,7 +58,7 @@ public static class Example70_Agent
         await ChatAsync(
             "Agents.ParrotAgent.yaml", // Defined under ./Resources/Agents
             plugin: null, // No plugin
-            arguments: new KernelArguments { { "count", 3 } },
+            arguments: new KernelArguments { { "count", 2 } },
             "Fortune favors the bold.",
             "I came, I saw, I conquered.",
             "Practice makes perfect.");
@@ -95,7 +95,7 @@ public static class Example70_Agent
 
         // Create a prompt function.
         var function = KernelFunctionFactory.CreateFromPrompt(
-             "Correct any misspelling or gramatical errors provided in input: {{$input}}",
+             "Correct any misspelling or grammatical errors provided in input, where appropriate include the original input in your output - always be polite: {{$input}}",
               functionName: "spellChecker",
               description: "Correct the spelling for the user input.");
 
@@ -108,6 +108,7 @@ public static class Example70_Agent
             arguments: null,
             "Hello",
             "Is this spelled correctly: exercize",
+            "Is this spelled correctly: supercalifragilisticexpialidocious",
             "What is the special soup?",
             "Thank you!");
     }

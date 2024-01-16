@@ -79,6 +79,18 @@ public partial class AgentBuilder
     }
 
     /// <summary>
+    /// Define the OpenAI chat completion service (required).
+    /// </summary>
+    /// <returns><see cref="AgentBuilder"/> instance for fluid expression.</returns>
+    public AgentBuilder WithExistingAgent(string agentId)
+    {
+        // await Agent.GetAgentModelAsync(agentId);
+
+        return this;
+    }
+
+
+    /// <summary>
     /// Create a new agent from a yaml formatted string.
     /// </summary>
     /// <param name="template">YAML agent definition.</param>

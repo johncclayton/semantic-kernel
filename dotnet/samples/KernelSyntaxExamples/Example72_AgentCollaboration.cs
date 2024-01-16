@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.SemanticKernel;
 using Microsoft.SemanticKernel.Experimental.Agents;
 
 // ReSharper disable once InconsistentNaming
@@ -42,7 +43,7 @@ public static class Example72_AgentCollaboration
         await RunCollaborationAsync();
 
         // Coordinate collaboration as plugin agents (equivalent to previous case - shared thread)
-        await RunAsPluginsAsync();
+        // await RunAsPluginsAsync();
     }
 
     /// <summary>
@@ -132,8 +133,19 @@ public static class Example72_AgentCollaboration
         }
     }
 
-    private async static Task<IAgent> CreateCopyWriterAsync(IAgent? agent = null)
+    private static async Task<IAgent> CreateCopyWriterAsync(IAgent? agent = null)
     {
+        // var result = await new AgentBuilder()
+        //     .WithOpenAIChatCompletion(OpenAIFunctionEnabledModel, TestConfiguration.OpenAI.ApiKey)
+        //     .WithExistingAgent("Copywriter")
+        //     .WithPlugin(agent?.AsPlugin())
+        //     .BuildAsync();
+        //
+        // if (result != null)
+        // {
+        //     return
+        // }
+
         return
             Track(
                 await new AgentBuilder()
@@ -145,13 +157,13 @@ public static class Example72_AgentCollaboration
                     .BuildAsync());
     }
 
-    private async static Task<IAgent> CreateArtDirectorAsync()
+    private static async Task<IAgent> CreateArtDirectorAsync()
     {
         return
             Track(
                 await new AgentBuilder()
                     .WithOpenAIChatCompletion(OpenAIFunctionEnabledModel, TestConfiguration.OpenAI.ApiKey)
-                    .WithInstructions("You are an art director who has opinions about copywriting born of a love for David Ogilvy. The goal is to determine is the given copy is acceptable to print, even if it isn't perfect.  If not, provide insight on how to refine suggested copy without example.  Always respond to the most recent message by evaluating and providing critique without example.  Always repeat the copy at the beginning.  If copy is acceptable and meets your criteria, say: PRINT IT.")
+                    .WithInstructions("You are an art director who has opinions about copywriting born of a love for David Ogilvy. The goal is to determine is the given copy is acceptable to print, even if it isn't perfect.  If not, provide insight on how to refine suggested copy without examples.  Always respond to the most recent message by evaluating and providing critique without examples.  Always repeat the copy at the beginning.  If copy is acceptable and meets your criteria, say: PRINT IT.")
                     .WithName("Art Director")
                     .WithDescription("Art Director")
                     .BuildAsync());

@@ -2,6 +2,6 @@ name: ToolRunner
 template_format: semantic-kernel
 template: |
   Respond to the user using the single best tool.
-  If no tool is appropriate, let the user know you only provide responses using tools.
-  When reporting a tool result, start with, "The tool I used informed me that"
+  If no tool is appropriate, let the user know that you don't know the answer - DO NOT offer to use other tools.
+  When reporting a tool result, just report the result - do not mention the tool that was used.
 description: Determines if a tool can be utilized to accomplish a result.
